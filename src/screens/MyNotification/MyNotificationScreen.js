@@ -8,7 +8,7 @@ import {
 import Menu from 'src/components/Menu';
 import Theme from 'src/theme/Theme';
 import Notification from 'src/components/Notification/Notification'
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 
 const notifyData = [
   {
@@ -87,10 +87,14 @@ const notifyData = [
 
 
 class MyNotificationScreen extends React.Component {
-  state = {
-    loading: false,
-  };
+  constructor (props) {
+    super(props)
 
+    this.state = {
+      loading: false,
+    }
+  }
+  
   render() {
     const { loading } = this.state;
 
@@ -102,7 +106,7 @@ class MyNotificationScreen extends React.Component {
         }
         
         <FlatList
-            data={notifyData}
+            data={this.props.notifyData}
             renderItem={({ item }) =>
                 <Notification
                     item={item}
@@ -117,7 +121,18 @@ class MyNotificationScreen extends React.Component {
     );
   }
 }
-export default MyNotificationScreen;
+
+const mapStateToProps = (state) => {
+  const { notifyData } = state.config;
+  return {
+    notifyData
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {},
+)(MyNotificationScreen);
 
 const styles = StyleSheet.create({
   container: {

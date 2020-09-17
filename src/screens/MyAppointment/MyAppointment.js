@@ -108,7 +108,6 @@ class MyAppointment extends React.Component {
   }
 
   renerItem = (item, index) => {
-    console.log(index)
     return (
       <View style={[styles.itemGroup, index % 2 != 0 ? { backgroundColor: 'white' } : {backgroundColor: '#f9f9f9'} ]}>
         <TouchableOpacity style={styles.itemOne} onPress={()=> navigate("AppointmentOption")}>

@@ -4,12 +4,15 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  PermissionsAndroid
 } from "react-native";
 
 import { navigate } from 'src/utils/navigation';
 import Menu from '../../components/Menu';
 import Theme from '../../theme/Theme';
+import Geolocation from '@react-native-community/geolocation';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 
 class AppointmentOption extends React.Component {
   state = {
@@ -21,13 +24,130 @@ class AppointmentOption extends React.Component {
     showdate: false,
     showtime: false,
     modalOption: false,
+    markers: [],
+    initialPosition: 'unknown',
+    lastPosition: 'unknown',
+    initialRegion: "",
   };
 
-  componentDidMount () {
+  watchID = null;
 
+  componentDidMount () {
+    this._getCurrentLocation();
   }
   
-  componentDidUpdate(prevProps, prevState) {
+  componentWillUnmount() {
+    this.watchID != null && Geolocation.clearWatch(this.watchID);
+  }
+
+  _getCurrentLocation = () => {
+    var that = this;
+      //Checking for the permission just after component loaded
+      this.setState({loading: true})
+      if(Platform.OS === 'ios'){
+        this.callLocation(that);
+      }else{
+        async function requestLocationPermission() {
+          try {
+            const granted = await PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,{
+                'title': 'Location Access Required',
+                'message': 'This App needs to Access your location'
+              }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+              //To Check, If Permission is granted
+              that.callLocation(that);
+            } else {
+              // alert("Permission Denied");
+            }
+          } catch (err) {
+            console.warn(err)
+            that.setState({loading: false})
+          }
+        }
+        requestLocationPermission();
+      }   
+  }
+
+  callLocation(that) {
+    let markers = [];
+     Geolocation.getCurrentPosition(
+        (position) => {
+           const currentLongitude = Number(JSON.stringify(position.coords.longitude)).toFixed(10);
+           const currentLatitude = Number(JSON.stringify(position.coords.latitude)).toFixed(10);
+           
+          let location = {
+            latitude: parseFloat(currentLatitude),
+            longitude: parseFloat(currentLongitude),
+          }
+          
+          let newMarker = {
+            latlng: location,
+            title: "my location",
+            description: "abc",
+          }
+          markers.push(newMarker);
+
+          let initialRegion={
+            latitude: parseFloat(currentLatitude),
+            longitude: parseFloat(currentLongitude),
+            latitudeDelta: 0.000922,
+            longitudeDelta: 0.000421,
+          }
+
+          that.setState({ initialRegion, markers });
+        },
+
+        (error) => {
+          console.log(error.message)
+          that.setState({loading: false})
+        },
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+     );
+
+    //  that.watchID = Geolocation.watchPosition((position) => {
+    //    //Will give you the location on location change
+    //      console.log(position);
+    //      const currentLongitude = JSON.stringify(position.coords.longitude);
+    //      //getting the Longitude from the location json
+    //      const currentLatitude = JSON.stringify(position.coords.latitude);
+         
+    //      let location = {
+    //       latitude: parseFloat(currentLatitude),
+    //       longitude: parseFloat(currentLongitude),
+    //     }
+        
+    //     let newMarker = {
+    //       latlng: location,
+    //       title: "my location",
+    //       description: "abc",
+    //     }
+    //     markers.push(newMarker);
+
+    //     let initialRegion={
+    //       latitude: parseFloat(currentLatitude),
+    //       longitude: parseFloat(currentLongitude),
+    //       // latitudeDelta: 0.0922,
+    //       // longitudeDelta: 0.0421,
+    //       latitudeDelta: 0.000922,
+    //       longitudeDelta: 0.000421,
+    //     }
+
+    //     that.setState({ initialRegion, markers });
+    //  });
+  }
+
+
+  onRegionChange(region, lastLat, lastLong) {
+
+  }
+
+  onPressZoomIn() {
+
+  }
+
+  onPressZoomOut() {
 
   }
 
@@ -84,8 +204,22 @@ class AppointmentOption extends React.Component {
       this.setState({showdate: true});
   }
 
-  render() {
+  onPressSendMessage = () => {
+    this.setState({modalOption: false});
+    navigate("NewMessage");
+  }
 
+  onPressViewEstimate = () => {
+    this.setState({modalOption: false});
+    navigate('PersonalInfo', {accept: true})
+  }
+
+  onPressCancel = () => {
+    this.setState({modalOption: false});
+  }
+
+  render() {
+    const { markers } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -139,27 +273,46 @@ class AppointmentOption extends React.Component {
             </View>
 
             <View style={styles.mapGroup}>
-              <Text style={{fontSize: 40, opacity: 0.4}}>Map View</Text>
+              {this.state.initialRegion != "" && markers.length > 0 &&
+                <MapView
+                  initialRegion={this.state.initialRegion}
+                  provider={PROVIDER_GOOGLE}
+                  tintColor={null}
+                  mapType="standard" // standard, none, satellite, hybrid, terrain, mutedStandard(iOS 11.0+ only)
+                  style={styles.map}
+                  onRegionChange={this.onRegionChange}
+                  >
+                    { markers.map((marker) => (
+                        <Marker
+                          coordinate={marker.latlng}
+                          title={marker.title}
+                          description={marker.description}
+                        ></Marker>
+                      ))
+                    }
+                </MapView>
+              }
             </View>
+
             {this.state.modalOption == true ? (
               <View style={{marginTop: -90, alignItems: 'center'}}>
                 <View style={{width: "70%"}}>
                       <View style={styles.optionModal}>
-                        <TouchableOpacity onPress={()=>navigate("NewMessage")}>
+                        <TouchableOpacity onPress={()=>this.onPressSendMessage()}>
                           <View style={{paddingTop: 18, paddingBottom: 6}} >
                             <Text style={styles.textmodal}>
                               Send message
                             </Text>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>console.log('aaa')}>
+                        <TouchableOpacity onPress={()=>this.onPressCancel()}>
                           <View style={{paddingVertical: 6}} >
                             <Text style={styles.textmodal}>
                               Cancel Appointment
                             </Text>
                           </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>navigate('PersonalInfo', {accept: true})}>
+                        <TouchableOpacity onPress={()=>this.onPressViewEstimate()}>
                           <View style={{paddingVertical: 6}} >
                             <Text style={styles.textmodal}>
                               View Estimate Details
@@ -177,7 +330,7 @@ class AppointmentOption extends React.Component {
                 </View>
 
                 <View  style={styles.btnWrapper}>
-                  <TouchableOpacity onPress={()=>navigate('PersonalInfo', {accept: true})}>
+                  <TouchableOpacity onPress={()=>this.onPressViewEstimate()}>
                     <Text style={styles.btn}>
                       View Estimate
                     </Text>
@@ -299,5 +452,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Theme.white,
     fontSize: Theme.fontText,
-  }
+  },
+  map: {
+    width: "100%",
+    height: "100%"
+  },
 });

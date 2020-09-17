@@ -7,10 +7,20 @@ import {
 } from "react-native";
 import { navigate } from 'src/utils/navigation';
 import Theme from "../../theme/Theme";
+import moment from "moment"
+import { connect } from "react-redux";
+import { updateNotification } from "../../redux";
 
 class Notification extends React.Component {
     onPressItem = () => {
       const {item} = this.props;
+      let newItem = {
+        ...item,
+        check: true,
+      }
+
+      this.props.updateNotification(newItem);
+
       if (item.type == "message")
         navigate('MessageDetail', {item: item})
       else if (item.type == "estimate")
@@ -18,6 +28,7 @@ class Notification extends React.Component {
     }
 
     render() {
+        console.log(this.props.item)
         return (
             <TouchableOpacity style={styles.container} onPress={() =>this.onPressItem()}>
               <View style={styles.contentContainer}>
@@ -27,16 +38,15 @@ class Notification extends React.Component {
                         {/* <View style={{flex: 1}}>
                           <Text numberOfLines={1} style={{ color: Theme.black, fontSize: Theme.fontText }}>{this.props.item.message}</Text>
                         </View> */}
-                        
                   </View>
                   <View style={{ flexDirection: 'row', marginTop: 3 }}>
-                        <Text numberOfLines={1} style={{ color: Theme.black, fontSize: Theme.fontText }}>{this.props.item.date}</Text>
-                        <Text numberOfLines={1} style={{ color: Theme.black, fontSize: Theme.fontText }}>{this.props.item.time}</Text>
+                        <Text numberOfLines={1} style={{ color: Theme.black, fontSize: Theme.fontText }}>{moment(this.props.item.date).format('MMM DD YYYY')} - </Text>
+                        <Text numberOfLines={1} style={{ color: Theme.black, fontSize: Theme.fontText }}>{moment(this.props.item.date).format('h:mm A')}</Text>
                   </View>
                 </View>
 
                 <View style={{flex: 1}}>
-                  {this.props.item.check && <View style={styles.circle}/>}
+                  {!this.props.item.check && <View style={styles.circle}/>}
                 </View>
               </View>
 
@@ -45,7 +55,25 @@ class Notification extends React.Component {
         );
     }
 }
-export default Notification;
+
+const mapStateToProps = (state) => {
+  const { notifyData } = state.config;
+  return {
+    notifyData
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching actions returned by action creators
+    updateNotification: (data) => dispatch(updateNotification(data)),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notification);
 
 const styles = StyleSheet.create({
   container: {

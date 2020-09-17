@@ -5,7 +5,17 @@ import { Colors } from 'src/theme';
 import { navigate } from 'src/utils/navigation';
 import Icon from 'react-native-vector-icons/Ionicons'
 import {drawer} from 'src/App'
+import { initNotification } from "../../redux/actions/config";
+import { useDispatch } from "react-redux";
+
 const Header = (props) => {
+  const dispatch = useDispatch();
+
+  const onPressNotification = () => {
+    // dispatch(initNotification());
+    navigate('MyNotificationScreen');
+  }
+
   return (
     <Container> 
       <TouchableOpacity
@@ -15,7 +25,7 @@ const Header = (props) => {
       </TouchableOpacity>      
       { props.title && <Title>{props.title}</Title> }
       { props.message ? 
-        <TouchableOpacity onPress={()=>navigate('MyNotificationScreen')}>
+        <TouchableOpacity onPress={()=>onPressNotification()}>
           <Image 
             source={require('src/assets/img/dashboard/bell-alert.png')} 
             style={{width: 30, height: 30}} />
@@ -25,6 +35,7 @@ const Header = (props) => {
     </Container>
   );
 };
+
 export default Header;
 
 const Container = styled(View)`

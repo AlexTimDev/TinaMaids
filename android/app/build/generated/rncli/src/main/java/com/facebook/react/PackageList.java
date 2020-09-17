@@ -15,12 +15,18 @@ import java.util.ArrayList;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 // @react-native-community/datetimepicker
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
+// @react-native-community/geolocation
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // react-native-date-picker
 import com.henninghall.date_picker.DatePickerPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-maps
+import com.airbnb.android.react.maps.MapsPackage;
+// react-native-onesignal
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
@@ -31,6 +37,8 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
+// react-native-youtube
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 
 public class PackageList {
   private Application application;
@@ -78,14 +86,18 @@ public class PackageList {
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
       new RNDateTimePickerPackage(),
+      new GeolocationPackage(),
       new RNCMaskedViewPackage(),
       new DatePickerPackage(),
       new RNGestureHandlerPackage(),
+      new MapsPackage(),
+      new ReactNativeOneSignalPackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),
       new SplashScreenReactPackage(),
-      new VectorIconsPackage()
+      new VectorIconsPackage(),
+      new ReactNativeYouTube()
     ));
   }
 }

@@ -12,39 +12,39 @@ public final class R {
     public static final class attr {
         private attr() {}
 
-        public static final int npv_AlternativeHint = 0x7f0301a9;
-        public static final int npv_AlternativeTextArrayWithMeasureHint = 0x7f0301aa;
-        public static final int npv_AlternativeTextArrayWithoutMeasureHint = 0x7f0301ab;
-        public static final int npv_DividerColor = 0x7f0301ac;
-        public static final int npv_DividerHeight = 0x7f0301ad;
-        public static final int npv_DividerMarginLeft = 0x7f0301ae;
-        public static final int npv_DividerMarginRight = 0x7f0301af;
-        public static final int npv_EmptyItemHint = 0x7f0301b0;
-        public static final int npv_HintText = 0x7f0301b1;
-        public static final int npv_ItemPaddingHorizontal = 0x7f0301b2;
-        public static final int npv_ItemPaddingVertical = 0x7f0301b3;
-        public static final int npv_MarginEndOfHint = 0x7f0301b4;
-        public static final int npv_MarginStartOfHint = 0x7f0301b5;
-        public static final int npv_MaxValue = 0x7f0301b6;
-        public static final int npv_MinValue = 0x7f0301b7;
-        public static final int npv_RespondChangeInMainThread = 0x7f0301b8;
-        public static final int npv_RespondChangeOnDetached = 0x7f0301b9;
-        public static final int npv_ShowDivider = 0x7f0301ba;
-        public static final int npv_ShownCount = 0x7f0301bb;
-        public static final int npv_TextArray = 0x7f0301bc;
-        public static final int npv_TextColorHint = 0x7f0301bd;
-        public static final int npv_TextColorNormal = 0x7f0301be;
-        public static final int npv_TextColorSelected = 0x7f0301bf;
-        public static final int npv_TextEllipsize = 0x7f0301c0;
-        public static final int npv_TextSizeHint = 0x7f0301c1;
-        public static final int npv_TextSizeNormal = 0x7f0301c2;
-        public static final int npv_TextSizeSelected = 0x7f0301c3;
-        public static final int npv_WrapSelectorWheel = 0x7f0301c4;
+        public static final int npv_AlternativeHint = 0x7f0301bc;
+        public static final int npv_AlternativeTextArrayWithMeasureHint = 0x7f0301bd;
+        public static final int npv_AlternativeTextArrayWithoutMeasureHint = 0x7f0301be;
+        public static final int npv_DividerColor = 0x7f0301bf;
+        public static final int npv_DividerHeight = 0x7f0301c0;
+        public static final int npv_DividerMarginLeft = 0x7f0301c1;
+        public static final int npv_DividerMarginRight = 0x7f0301c2;
+        public static final int npv_EmptyItemHint = 0x7f0301c3;
+        public static final int npv_HintText = 0x7f0301c4;
+        public static final int npv_ItemPaddingHorizontal = 0x7f0301c5;
+        public static final int npv_ItemPaddingVertical = 0x7f0301c6;
+        public static final int npv_MarginEndOfHint = 0x7f0301c7;
+        public static final int npv_MarginStartOfHint = 0x7f0301c8;
+        public static final int npv_MaxValue = 0x7f0301c9;
+        public static final int npv_MinValue = 0x7f0301ca;
+        public static final int npv_RespondChangeInMainThread = 0x7f0301cb;
+        public static final int npv_RespondChangeOnDetached = 0x7f0301cc;
+        public static final int npv_ShowDivider = 0x7f0301cd;
+        public static final int npv_ShownCount = 0x7f0301ce;
+        public static final int npv_TextArray = 0x7f0301cf;
+        public static final int npv_TextColorHint = 0x7f0301d0;
+        public static final int npv_TextColorNormal = 0x7f0301d1;
+        public static final int npv_TextColorSelected = 0x7f0301d2;
+        public static final int npv_TextEllipsize = 0x7f0301d3;
+        public static final int npv_TextSizeHint = 0x7f0301d4;
+        public static final int npv_TextSizeNormal = 0x7f0301d5;
+        public static final int npv_TextSizeSelected = 0x7f0301d6;
+        public static final int npv_WrapSelectorWheel = 0x7f0301d7;
     }
     public static final class styleable {
         private styleable() {}
 
-        public static final int[] NumberPickerView = { 0x7f0301a9, 0x7f0301aa, 0x7f0301ab, 0x7f0301ac, 0x7f0301ad, 0x7f0301ae, 0x7f0301af, 0x7f0301b0, 0x7f0301b1, 0x7f0301b2, 0x7f0301b3, 0x7f0301b4, 0x7f0301b5, 0x7f0301b6, 0x7f0301b7, 0x7f0301b8, 0x7f0301b9, 0x7f0301ba, 0x7f0301bb, 0x7f0301bc, 0x7f0301bd, 0x7f0301be, 0x7f0301bf, 0x7f0301c0, 0x7f0301c1, 0x7f0301c2, 0x7f0301c3, 0x7f0301c4 };
+        public static final int[] NumberPickerView = { 0x7f0301bc, 0x7f0301bd, 0x7f0301be, 0x7f0301bf, 0x7f0301c0, 0x7f0301c1, 0x7f0301c2, 0x7f0301c3, 0x7f0301c4, 0x7f0301c5, 0x7f0301c6, 0x7f0301c7, 0x7f0301c8, 0x7f0301c9, 0x7f0301ca, 0x7f0301cb, 0x7f0301cc, 0x7f0301cd, 0x7f0301ce, 0x7f0301cf, 0x7f0301d0, 0x7f0301d1, 0x7f0301d2, 0x7f0301d3, 0x7f0301d4, 0x7f0301d5, 0x7f0301d6, 0x7f0301d7 };
         public static final int NumberPickerView_npv_AlternativeHint = 0;
         public static final int NumberPickerView_npv_AlternativeTextArrayWithMeasureHint = 1;
         public static final int NumberPickerView_npv_AlternativeTextArrayWithoutMeasureHint = 2;
