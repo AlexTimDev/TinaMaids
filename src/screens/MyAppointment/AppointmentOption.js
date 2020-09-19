@@ -104,7 +104,7 @@ class AppointmentOption extends React.Component {
           console.log(error.message)
           that.setState({loading: false})
         },
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
      );
   }
 
