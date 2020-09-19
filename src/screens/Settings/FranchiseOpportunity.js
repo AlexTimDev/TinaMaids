@@ -63,7 +63,7 @@ class FranchiseOpportunity extends React.Component {
 
           <View style={styles.video}>
             <YouTube
-              apiKey= 'AIzaSyCSKKH0G9Vj7qrLkImWxxuEKXoi7CCFYoY'
+              apiKey= ''
               videoId="fElBk-PbJM4"
               style={{ alignSelf: 'stretch', height: "100%" }}
             />
