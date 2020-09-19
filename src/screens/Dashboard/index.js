@@ -16,15 +16,11 @@ class Dashboard extends React.Component {
     
     _this = this;
 
-    //Remove this method to stop OneSignal Debugging 
     OneSignal.setLogLevel(6, 0);
-    
-    // Replace 'YOUR_ONESIGNAL_APP_ID' with your OneSignal App ID.
     OneSignal.init("2084fe55-dee1-4e62-a03c-4694f96e6f17", {kOSSettingsKeyAutoPrompt : false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption:2});
-    OneSignal.inFocusDisplaying(2); // Controls what should happen if a notification is received while the app is open. 2 means that the notification will go directly to the device's notification center.
+    OneSignal.inFocusDisplaying(2);
     
-    // The promptForPushNotifications function code will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step below)
-    //OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
+    OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
 
     OneSignal.addEventListener('received', this.onReceived);
     OneSignal.addEventListener('opened', this.onOpened);
@@ -40,6 +36,8 @@ class Dashboard extends React.Component {
       this.setState({isNotify: true})
     else
       this.setState({isNotify: false})
+        
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,7 +86,7 @@ class Dashboard extends React.Component {
   }
   
   onIds(device) {
-    // console.log('Device info: ', device);
+    console.log('Device info: ', device);
   }
   render() {
     const { isNotify } = this.state;
@@ -104,6 +102,10 @@ class Dashboard extends React.Component {
     );
   }
 };
+
+function myiOSPromptCallback(permission){
+  
+}
 
 const mapStateToProps = (state) => {
   const { notifyData, isReadNotify } = state.config;

@@ -42,7 +42,6 @@ class AppointmentOption extends React.Component {
 
   _getCurrentLocation = () => {
     var that = this;
-      //Checking for the permission just after component loaded
       this.setState({loading: true})
       if(Platform.OS === 'ios'){
         this.callLocation(that);
@@ -59,7 +58,7 @@ class AppointmentOption extends React.Component {
               //To Check, If Permission is granted
               that.callLocation(that);
             } else {
-              // alert("Permission Denied");
+              console.log("Permission Denied");
             }
           } catch (err) {
             console.warn(err)
@@ -85,18 +84,20 @@ class AppointmentOption extends React.Component {
           let newMarker = {
             latlng: location,
             title: "my location",
-            description: "abc",
+            description: "current position",
           }
           markers.push(newMarker);
 
           let initialRegion={
             latitude: parseFloat(currentLatitude),
             longitude: parseFloat(currentLongitude),
-            latitudeDelta: 0.000922,
-            longitudeDelta: 0.000421,
+            latitudeDelta: 0.00922,
+            longitudeDelta: 0.00421,
           }
 
           that.setState({ initialRegion, markers });
+
+          console.log(initialRegion, markers)
         },
 
         (error) => {
@@ -105,37 +106,6 @@ class AppointmentOption extends React.Component {
         },
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
      );
-
-    //  that.watchID = Geolocation.watchPosition((position) => {
-    //    //Will give you the location on location change
-    //      console.log(position);
-    //      const currentLongitude = JSON.stringify(position.coords.longitude);
-    //      //getting the Longitude from the location json
-    //      const currentLatitude = JSON.stringify(position.coords.latitude);
-         
-    //      let location = {
-    //       latitude: parseFloat(currentLatitude),
-    //       longitude: parseFloat(currentLongitude),
-    //     }
-        
-    //     let newMarker = {
-    //       latlng: location,
-    //       title: "my location",
-    //       description: "abc",
-    //     }
-    //     markers.push(newMarker);
-
-    //     let initialRegion={
-    //       latitude: parseFloat(currentLatitude),
-    //       longitude: parseFloat(currentLongitude),
-    //       // latitudeDelta: 0.0922,
-    //       // longitudeDelta: 0.0421,
-    //       latitudeDelta: 0.000922,
-    //       longitudeDelta: 0.000421,
-    //     }
-
-    //     that.setState({ initialRegion, markers });
-    //  });
   }
 
 
